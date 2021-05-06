@@ -26,6 +26,7 @@ const Image = () => {
   return (
     <GatsbyImage
       image={data.placeholderImage.childImageSharp.gatsbyImageData}
+      alt="Gatsby"
     />
   )
 }
