@@ -6,9 +6,16 @@ import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => {
+function Toggle() {
   const { value, toggle } = useDarkMode(false)
 
+  // wait for client-side hydration to render the toggle
+  if (typeof window === "undefined") return null
+
+  return <Switch checked={value} onChange={toggle} />
+}
+
+const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
@@ -16,8 +23,7 @@ const IndexPage = () => {
       <p>Welcome to your new Gatsby site.</p>
       <p>Now go build something great.</p>
       <div>
-        <span>Toggle dark mode:</span>{" "}
-        <Switch checked={value} onChange={toggle} />
+        <span>Toggle dark mode:</span> <Toggle />
       </div>
       <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
         <Image />
