@@ -8,14 +8,16 @@ import SEO from "../components/seo"
 
 function Toggle() {
   const { value, toggle } = useDarkMode(false)
-
-  // wait for client-side hydration to render the toggle
-  if (typeof window === "undefined") return null
-
   return <Switch checked={value} onChange={toggle} />
 }
 
-const IndexPage = () => {
+export default function IndexPage() {
+  const [isClient, setIsClient] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   return (
     <Layout>
       <SEO title="Home" />
@@ -23,7 +25,7 @@ const IndexPage = () => {
       <p>Welcome to your new Gatsby site.</p>
       <p>Now go build something great.</p>
       <div>
-        <span>Toggle dark mode:</span> <Toggle />
+        <span>Toggle dark mode:</span> {isClient ? <Toggle /> : null}
       </div>
       <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
         <Image />
@@ -32,4 +34,3 @@ const IndexPage = () => {
     </Layout>
   )
 }
-export default IndexPage
